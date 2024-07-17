@@ -47,6 +47,10 @@ group :development do
   # Ruby linter and formatter
   # https://github.com/rubocop/rubocop
   gem "rubocop"
+
+  # Automatically run hooks when commiting
+  # https://github.com/sds/overcommit
+  gem "overcommit"
 end
 
 # These gems will only be used when we are running tests
