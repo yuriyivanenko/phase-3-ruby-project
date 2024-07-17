@@ -1,7 +1,10 @@
-ENV['RACK_ENV'] ||= 'test'
+# frozen_string_literal: true
+
+ENV["RACK_ENV"] ||= "test"
 require_relative "../config/environment"
 require "sinatra/activerecord/rake"
 
+# rubocop:disable Metrics/BlockLength
 RSpec.configure do |config|
   config.include Rack::Test::Methods
 
@@ -38,11 +41,12 @@ RSpec.configure do |config|
   config.mock_with :rspec do |mocks|
     mocks.verify_partial_doubles = true
   end
-  
+
   config.shared_context_metadata_behavior = :apply_to_host_groups
 end
+# rubocop:enable Metrics/BlockLength
 
 # Rack::Test::Methods needs this to run our controller
 def app
-  Rack::Builder.parse_file('config.ru').first
+  Rack::Builder.parse_file("config.ru").first
 end

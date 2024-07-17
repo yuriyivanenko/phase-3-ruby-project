@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 source "https://rubygems.org"
 
 # A DSL for quickly creating web applications
@@ -41,6 +43,10 @@ group :development do
   # Automatically reload when there are changes
   # https://github.com/alexch/rerun
   gem "rerun"
+
+  # Ruby linter and formatter
+  # https://github.com/rubocop/rubocop
+  gem "rubocop"
 end
 
 # These gems will only be used when we are running tests
