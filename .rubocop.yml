@@ -65,9 +65,6 @@ Style/HashSyntax:
 Style/ArrayCoercion:
   Enabled: true
 
-Style/FrozenStringLiteralComment:
-  Enabled: true
-
 Style/BlockDelimiters:
   EnforcedStyle: line_count_based
 
