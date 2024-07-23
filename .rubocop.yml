@@ -75,7 +75,7 @@ Style/SafeNavigation:
   Enabled: true
 
 Style/MethodCallWithArgsParentheses:
-  EnforcedStyle: omit_parentheses
+  EnforcedStyle: require_parentheses
 
 Style/IfUnlessModifier:
   Enabled: true
@@ -84,7 +84,7 @@ Style/Lambda:
   EnforcedStyle: literal
 
 Style/MethodDefParentheses:
-  EnforcedStyle: require_no_parentheses
+  EnforcedStyle: require_parentheses
 
 Style/CaseEquality:
   Enabled: true
