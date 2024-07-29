@@ -7,4 +7,14 @@ class ApplicationController < Sinatra::Base
   get "/" do
     { message: "Good luck with your project!" }.to_json
   end
+
+  post "/users" do
+    user = User.find_by( username: params[:username] )
+
+    if user && user[:password] == params[:password]
+      user.to_json
+    else
+      { username: "error" }.to_json
+    end
+  end
 end
