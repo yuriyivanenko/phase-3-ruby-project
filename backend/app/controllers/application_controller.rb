@@ -17,4 +17,14 @@ class ApplicationController < Sinatra::Base
       { username: "error" }.to_json
     end
   end
+
+  post "/profitandloss" do 
+    sales = SalesTransaction.where(user_id: params[:id]).sum(:amount)
+    purchases = PurchaseTransaction.where(user_id: params[:id]).sum(:amount)
+    {
+      sales: sales,
+      purchases: purchases,
+      profit_or_loss: sales - purchases
+    }.to_json
+  end
 end
