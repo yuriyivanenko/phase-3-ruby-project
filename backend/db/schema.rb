@@ -19,32 +19,20 @@ ActiveRecord::Schema.define(version: 2024_07_29_151531) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
-  create_table "purchase_categories", force: :cascade do |t|
-    t.string "name"
-    t.integer "user_id"
-  end
-
   create_table "purchase_transactions", force: :cascade do |t|
     t.decimal "amount", precision: 10, scale: 2
     t.string "description"
     t.date "date"
-    t.integer "purchase_category_id"
     t.integer "vendor_id"
     t.integer "user_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
 
-  create_table "sales_categories", force: :cascade do |t|
-    t.string "name"
-    t.integer "user_id"
-  end
-
   create_table "sales_transactions", force: :cascade do |t|
     t.decimal "amount", precision: 10, scale: 2
     t.string "description"
     t.date "date"
-    t.integer "sales_category_id"
     t.integer "customer_id"
     t.integer "user_id"
     t.datetime "created_at", precision: 6, null: false
@@ -58,7 +46,7 @@ ActiveRecord::Schema.define(version: 2024_07_29_151531) do
   end
 
   create_table "vendors", force: :cascade do |t|
-    t.string "vendor_name"
+    t.string "name"
     t.integer "user_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false

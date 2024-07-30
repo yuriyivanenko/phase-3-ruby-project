@@ -4,7 +4,6 @@ class CreatePurchaseTransactions < ActiveRecord::Migration[6.1]
       t.decimal :amount, precision: 10, scale: 2
       t.string :description
       t.date :date
-      t.integer :purchase_category_id
       t.integer :vendor_id
       t.integer :user_id
       t.timestamps
