@@ -7,13 +7,12 @@ import LoginForm from "./components/LoginForm"
 import NavBar from "./components/NavBar"
 
 function App() {
-  // const [user, setUser] = useState(null)
-
   return (
     <UserProvider>
       <NavBar />
-      {/* <div className="App">{user ? null : <LoginForm setUser={setUser} />}</div> */}
-      <LoginForm />
+      <div className="container text-center">
+        <LoginForm />
+      </div>
     </UserProvider>
   )
 }
