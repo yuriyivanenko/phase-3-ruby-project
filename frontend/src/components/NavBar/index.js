@@ -34,12 +34,12 @@ const NavBar = () => {
               </Link>
             </li>
             <li className="nav-item">
-              <Link className="nav-link" to="/profit&loss" className="nav-link">
+              <Link className="nav-link" to="/profit&loss">
                 P&L
               </Link>
             </li>
             <li className="nav-item">
-              <Link className="nav-link" to="/settings" className="nav-link">
+              <Link className="nav-link" to="/settings">
                 Settings
               </Link>
             </li>
