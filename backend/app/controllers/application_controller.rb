@@ -1,4 +1,4 @@
-# frozen_string_literal: true
+require "date"
 
 class ApplicationController < Sinatra::Base
   set :default_content_type, "application/json"
@@ -19,8 +19,15 @@ class ApplicationController < Sinatra::Base
   end
 
   post "/profitandloss" do 
-    sales = SalesTransaction.where(user_id: params[:id]).sum(:amount)
-    purchases = PurchaseTransaction.where(user_id: params[:id]).sum(:amount)
+    puts "PUTSS:: #{params}"
+    start_date = params[:startDate]
+    end_date = params[:endDate]
+    sales = SalesTransaction
+      .where(user_id: params[:id], date: start_date..end_date)
+      .sum(:amount)
+    purchases = PurchaseTransaction
+      .where(user_id: params[:id], date: start_date..end_date)
+      .sum(:amount)
     {
       sales: sales,
       purchases: purchases,
