@@ -82,11 +82,11 @@ const NewTransaction = () => {
         <h3 className="my-3">New Transaction</h3>
         <form onSubmit={handleSubmit}>
           <div className="input-group mb-3">
-            <label className="input-group-text" for="inputGroupSelect01">
+            <label className="input-group-text" htmlFor="inputGroupSelect01">
               Type
             </label>
             <select
-              class="form-select"
+              className="form-select"
               id="inputGroupSelect01"
               onChange={handleChangeTransactionType}
               value={transactionType}
@@ -102,7 +102,7 @@ const NewTransaction = () => {
           </div>
           <div className="input-group mb-3">
             <label className="input-group-text">{transactionType === "Sale" ? "Customer" : "Vendor"}:</label>
-            <select required class="form-select" value={party} onChange={(e) => setParty(e.target.value)}>
+            <select required className="form-select" value={party} onChange={(e) => setParty(e.target.value)}>
               {parties[transactionType].map((p) => (
                 <option key={p.id} value={p.id}>
                   {p.name}
