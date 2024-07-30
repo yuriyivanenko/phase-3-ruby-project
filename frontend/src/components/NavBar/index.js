@@ -34,19 +34,14 @@ const NavBar = () => {
               </Link>
             </li>
             <li className="nav-item">
-              <a className="nav-link" href="#">
+              <Link className="nav-link" to="/profit&loss" className="nav-link">
                 P&L
-              </a>
+              </Link>
             </li>
             <li className="nav-item">
-              <a className="nav-link" href="#">
-                Vendors
-              </a>
-            </li>
-            <li className="nav-item">
-              <a className="nav-link" href="#" tabIndex="-1" aria-disabled="true">
-                Customers
-              </a>
+              <Link className="nav-link" to="/settings" className="nav-link">
+                Settings
+              </Link>
             </li>
             <a className="navbar-brand px-5" href="#">
               {user && `${user.business_name}`}
