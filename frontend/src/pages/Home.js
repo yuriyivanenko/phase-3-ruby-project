@@ -1,10 +1,8 @@
-import "./App.css"
 import "bootstrap/dist/css/bootstrap.min.css"
-import { useState } from "react"
-import { UserProvider } from "./components/contexts/UserContext"
+import { UserProvider } from "../components/contexts/UserContext"
 
-import LoginForm from "./components/LoginForm"
-import NavBar from "./components/NavBar"
+import LoginForm from "../components/LoginForm"
+import NavBar from "../components/NavBar"
 
 function App() {
   return (
