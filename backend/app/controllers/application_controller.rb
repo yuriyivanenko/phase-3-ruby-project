@@ -19,15 +19,13 @@ class ApplicationController < Sinatra::Base
   end
 
   post "/profitandloss" do 
-    puts "PUTSS:: #{params}"
+    id = params[:id]
     start_date = params[:startDate]
     end_date = params[:endDate]
-    sales = SalesTransaction
-      .where(user_id: params[:id], date: start_date..end_date)
-      .sum(:amount)
-    purchases = PurchaseTransaction
-      .where(user_id: params[:id], date: start_date..end_date)
-      .sum(:amount)
+
+    sales = SalesTransaction.total_sales_between_dates(id, start_date, end_date)
+    purchases = PurchaseTransaction.total_purchases_between_dates(id, start_date, end_date)
+    
     {
       sales: sales,
       purchases: purchases,
