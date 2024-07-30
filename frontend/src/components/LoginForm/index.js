@@ -1,8 +1,10 @@
 import React, { useState } from "react"
+import { useNavigate } from "react-router-dom"
 import { useUser } from "../contexts/UserContext"
 
 const LoginForm = () => {
   const { user, setUser } = useUser()
+  const navigate = useNavigate()
 
   const [formData, setFormData] = useState({
     username: "",
@@ -30,6 +32,7 @@ const LoginForm = () => {
         console.log(data)
         setUser(data)
       })
+      .then(navigate("/profit&loss"))
       .catch((error) => console.error("Error:", error))
   }
   const handleSubmit = (event) => {
