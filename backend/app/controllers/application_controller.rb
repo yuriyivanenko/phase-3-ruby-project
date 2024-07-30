@@ -63,4 +63,14 @@ class ApplicationController < Sinatra::Base
     end
     {message: "Worked"}.to_json
   end
+
+  post "/fetch_all_vendors_and_customers" do 
+    id = params[:id]
+    vendors = Vendor.where(user_id: id)
+    customers = Customer.where(user_id: id)
+    {
+      vendors: vendors,
+      customers: customers
+  }.to_json
+  end
 end
