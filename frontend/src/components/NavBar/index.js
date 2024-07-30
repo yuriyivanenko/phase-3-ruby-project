@@ -1,8 +1,12 @@
 import React from "react"
+import { Link, useNavigate } from "react-router-dom"
 import { useUser } from "../contexts/UserContext"
 
 const NavBar = () => {
   const { user, setUser } = useUser()
+  const navigate = useNavigate()
+
+  const navigateTo = (route) => navigate(route)
 
   console.log(user)
   return (
@@ -25,9 +29,9 @@ const NavBar = () => {
         <div className="collapse navbar-collapse" id="navbarNav">
           <ul className="navbar-nav">
             <li className="nav-item">
-              <a className="nav-link" aria-current="page" href="#">
+              <Link to="/new_transaction" className="nav-link">
                 New Transaction
-              </a>
+              </Link>
             </li>
             <li className="nav-item">
               <a className="nav-link" href="#">
