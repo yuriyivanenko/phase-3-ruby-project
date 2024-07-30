@@ -27,6 +27,7 @@ ActiveRecord::Schema.define(version: 2024_07_29_151531) do
   create_table "purchase_transactions", force: :cascade do |t|
     t.decimal "amount", precision: 10, scale: 2
     t.string "description"
+    t.date "date"
     t.integer "purchase_category_id"
     t.integer "vendor_id"
     t.integer "user_id"
@@ -42,6 +43,7 @@ ActiveRecord::Schema.define(version: 2024_07_29_151531) do
   create_table "sales_transactions", force: :cascade do |t|
     t.decimal "amount", precision: 10, scale: 2
     t.string "description"
+    t.date "date"
     t.integer "sales_category_id"
     t.integer "customer_id"
     t.integer "user_id"

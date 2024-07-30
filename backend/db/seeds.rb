@@ -1,3 +1,5 @@
+require 'date'
+
 User.destroy_all
 Vendor.destroy_all
 PurchaseCategory.destroy_all
@@ -51,6 +53,7 @@ users.each do |user|
     PurchaseTransaction.create(
       amount: rand(100.00..1000.00).round(2),
       description: "Transaction for #{user.username}",
+      date: Date.new(2024, 7, rand(1..31)),
       purchase_category_id: user.purchase_categories.sample.id,
       vendor_id: user.vendors.sample.id,
       user_id: user.id
@@ -93,6 +96,7 @@ users.each do |user|
     SalesTransaction.create(
       amount: rand(1000.00..1200.00).round(2),
       description: "Transaction for #{user.username}",
+      date: Date.new(2024, 7, rand(1..31)),
       sales_category_id: user.sales_categories.sample.id,
       customer_id: user.customers.sample.id,
       user_id: user.id
