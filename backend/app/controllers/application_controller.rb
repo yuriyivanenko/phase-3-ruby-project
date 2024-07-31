@@ -71,7 +71,7 @@ class ApplicationController < Sinatra::Base
     {
       vendors: vendors,
       customers: customers
-  }.to_json
+    }.to_json
   end
 
   patch "/update_vendor_or_customer" do
@@ -96,5 +96,11 @@ class ApplicationController < Sinatra::Base
       customer = Customer.find(params[:party_id]).destroy
       {party: customer, type: "customer"}.to_json
     end
+  end
+
+  post "/add_vendor" do
+    puts "::::#{params}"
+    vendor = Vendor.create(name: params[:name], user_id: params[:user_id])
+    vendor.to_json
   end
 end

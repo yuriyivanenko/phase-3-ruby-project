@@ -2,6 +2,7 @@ import { useState } from "react"
 import { useUser } from "../components/contexts/UserContext"
 import NavBar from "../components/NavBar"
 import SettingsRow from "../components/SettingsRow"
+import AddVendor from "../components/AddVendor"
 
 function Settings() {
   const { user } = useUser()
@@ -25,6 +26,10 @@ function Settings() {
       .catch((error) => console.error("Error:", error))
   }
 
+  const handleCreateVendor = (vendor) => {
+    setVendors((prev) => [...prev, vendor])
+  }
+
   return (
     <>
       <NavBar />
@@ -42,6 +47,7 @@ function Settings() {
                 vendors.map((vendor) => {
                   return <SettingsRow key={vendor.id} party={{ ...vendor, type: "vendor" }} />
                 })}
+              <AddVendor onCreateVendor={handleCreateVendor} />
             </tbody>
           </table>
 
@@ -57,6 +63,14 @@ function Settings() {
                   customers.map((customer) => {
                     return <SettingsRow key={customer.id} party={{ ...customer, type: "customer" }} />
                   })}
+                <tr>
+                  <td>
+                    <input className="" type="text" />
+                  </td>
+                  <td>
+                    <button className="btn btn-primary">Add Customer</button>
+                  </td>
+                </tr>
               </tbody>
             </table>
           </div>
