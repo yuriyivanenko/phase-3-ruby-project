@@ -6,7 +6,11 @@ const NavBar = () => {
   const { user, setUser } = useUser()
   const navigate = useNavigate()
 
-  const navigateTo = (route) => navigate(route)
+  const handleLogOut = () => {
+    localStorage.removeItem("user")
+    setUser(null)
+    navigate("/")
+  }
 
   console.log(user)
   return (
@@ -45,6 +49,11 @@ const NavBar = () => {
             </li>
             <a className="navbar-brand px-5" href="#">
               {user && `${user.business_name}`}
+              {user && (
+                <button className="btn btn-outline-primary mx-3" onClick={handleLogOut}>
+                  Logout
+                </button>
+              )}
             </a>
           </ul>
         </div>

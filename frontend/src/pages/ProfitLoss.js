@@ -1,12 +1,20 @@
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import NavBar from "../components/NavBar"
 import { useUser } from "../components/contexts/UserContext"
 
 const ProfitLoss = () => {
-  const { user } = useUser()
+  const { user, setUser } = useUser()
   const [data, setData] = useState(null)
   const [startDate, setStartDate] = useState("")
   const [endDate, setEndDate] = useState("")
+
+  useEffect(() => {
+    const savedUser = localStorage.getItem("user")
+    const user = savedUser ? JSON.parse(savedUser) : null
+    if (user) {
+      setUser(user)
+    }
+  }, [])
 
   const fetchProfitLoss = () => {
     fetch("http://localhost:9292/profitandloss", {

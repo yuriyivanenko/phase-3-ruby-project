@@ -5,7 +5,7 @@ import SalesTable from "../components/SalesTable"
 import PurchasesTable from "../components/PurchasesTable"
 
 const Transaction = () => {
-  const { user } = useUser()
+  const { user, setUser } = useUser()
   const [transactionType, setTransactionType] = useState("Sale")
   const [showTables, setShowTables] = useState(false)
   const [showSales, setShowSales] = useState(false)
@@ -17,6 +17,14 @@ const Transaction = () => {
     Sale: [],
     Expense: [],
   })
+
+  useEffect(() => {
+    const savedUser = localStorage.getItem("user")
+    const user = savedUser ? JSON.parse(savedUser) : null
+    if (user) {
+      setUser(user)
+    }
+  }, [])
 
   useEffect(() => {
     fetchVendorOrCustomer(transactionType)

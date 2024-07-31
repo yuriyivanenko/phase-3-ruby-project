@@ -1,15 +1,24 @@
-import React, { useState } from "react"
+import React, { useEffect, useState } from "react"
 import { useNavigate } from "react-router-dom"
 import { useUser } from "../contexts/UserContext"
 
 const LoginForm = () => {
-  const { user, setUser } = useUser()
+  const { setUser } = useUser()
   const navigate = useNavigate()
 
   const [formData, setFormData] = useState({
     username: "",
     password: "",
   })
+
+  useEffect(() => {
+    const savedUser = localStorage.getItem("user")
+    const user = savedUser ? JSON.parse(savedUser) : null
+    if (user) {
+      setUser(user)
+      navigate("/profit&loss")
+    }
+  }, [])
 
   const handleChange = (event) => {
     const { name, value } = event.target
@@ -29,8 +38,8 @@ const LoginForm = () => {
     })
       .then((res) => res.json())
       .then((data) => {
-        console.log(data)
         setUser(data)
+        localStorage.setItem("user", JSON.stringify(data))
       })
       .then(navigate("/profit&loss"))
       .catch((error) => console.error("Error:", error))

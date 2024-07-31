@@ -6,11 +6,22 @@ import AddVendor from "../components/AddVendor"
 import AddCustomer from "../components/AddCustomer"
 
 function Settings() {
-  const { user } = useUser()
+  const { user, setUser } = useUser()
   const [vendors, setVendors] = useState(null)
   const [customers, setCustomers] = useState(null)
 
-  useEffect(() => fetchVendorsAndCustomers(), [])
+  useEffect(() => {
+    getUserAndData()
+  }, [])
+
+  const getUserAndData = async () => {
+    const savedUser = localStorage.getItem("user")
+    const user = savedUser ? JSON.parse(savedUser) : null
+    if (user) {
+      await setUser(user)
+    }
+    fetchVendorsAndCustomers()
+  }
 
   const fetchVendorsAndCustomers = () => {
     fetch("http://localhost:9292/fetch_all_vendors_and_customers", {
