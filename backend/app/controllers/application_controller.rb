@@ -99,8 +99,12 @@ class ApplicationController < Sinatra::Base
   end
 
   post "/add_vendor" do
-    puts "::::#{params}"
     vendor = Vendor.create(name: params[:name], user_id: params[:user_id])
     vendor.to_json
+  end
+
+  post "/add_customer" do
+    customer = Customer.create(name: params[:name], user_id: params[:user_id])
+    customer.to_json
   end
 end

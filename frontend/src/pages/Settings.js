@@ -3,6 +3,7 @@ import { useUser } from "../components/contexts/UserContext"
 import NavBar from "../components/NavBar"
 import SettingsRow from "../components/SettingsRow"
 import AddVendor from "../components/AddVendor"
+import AddCustomer from "../components/AddCustomer"
 
 function Settings() {
   const { user } = useUser()
@@ -26,9 +27,8 @@ function Settings() {
       .catch((error) => console.error("Error:", error))
   }
 
-  const handleCreateVendor = (vendor) => {
-    setVendors((prev) => [...prev, vendor])
-  }
+  const handleCreateVendor = (vendor) => setVendors((prev) => [...prev, vendor])
+  const handleCreateCustomer = (customer) => setCustomers((prev) => [...prev, customer])
 
   return (
     <>
@@ -63,14 +63,7 @@ function Settings() {
                   customers.map((customer) => {
                     return <SettingsRow key={customer.id} party={{ ...customer, type: "customer" }} />
                   })}
-                <tr>
-                  <td>
-                    <input className="" type="text" />
-                  </td>
-                  <td>
-                    <button className="btn btn-primary">Add Customer</button>
-                  </td>
-                </tr>
+                <AddCustomer onAddCustomer={handleCreateCustomer} />
               </tbody>
             </table>
           </div>
