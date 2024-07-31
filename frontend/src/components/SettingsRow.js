@@ -5,10 +5,7 @@ const SettingsRow = ({ party: { name, id, user_id, type } }) => {
   const [nonEditName, setNonEditName] = useState(name)
   const [partyName, setPartyName] = useState(name)
 
-  const handleEditing = () => {
-    setIsEditable(!isEditable)
-    // setPartyName(name)
-  }
+  const handleEditing = () => setIsEditable(!isEditable)
 
   const handleUpdateParty = () => {
     fetch("http://localhost:9292/update_vendor_or_customer", {
@@ -24,6 +21,21 @@ const SettingsRow = ({ party: { name, id, user_id, type } }) => {
         setNonEditName(data.name)
         setPartyName(data.name)
         setIsEditable(false)
+      })
+      .catch((error) => console.error("Error:", error))
+  }
+
+  const handleDeleteParty = () => {
+    fetch("http://localhost:9292/delete_vendor_or_customer", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ party_id: id, user_id, partyName, type }),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(data)
       })
       .catch((error) => console.error("Error:", error))
   }
@@ -47,7 +59,9 @@ const SettingsRow = ({ party: { name, id, user_id, type } }) => {
             ✏️
           </button>
         </span>
-        <button className="btn btn-outline-primary">🗑️</button>
+        <button className="btn btn-outline-primary" onClick={handleDeleteParty}>
+          🗑️
+        </button>
       </td>
     </tr>
   )

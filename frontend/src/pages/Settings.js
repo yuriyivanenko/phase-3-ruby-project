@@ -1,4 +1,3 @@
-import { useSearchParams } from "react-router-dom"
 import { useState } from "react"
 import { useUser } from "../components/contexts/UserContext"
 import NavBar from "../components/NavBar"
