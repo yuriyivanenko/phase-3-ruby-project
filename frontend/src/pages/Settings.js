@@ -10,9 +10,7 @@ function Settings() {
   const [vendors, setVendors] = useState(null)
   const [customers, setCustomers] = useState(null)
 
-  useEffect(() => {
-    fetchVendorsAndCustomers()
-  }, [])
+  useEffect(() => fetchVendorsAndCustomers(), [])
 
   const fetchVendorsAndCustomers = () => {
     fetch("http://localhost:9292/fetch_all_vendors_and_customers", {
