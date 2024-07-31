@@ -8,5 +8,7 @@ class CreateSalesTransactions < ActiveRecord::Migration[6.1]
       t.integer :user_id
       t.timestamps
     end
+
+    add_foreign_key :sales_transactions, :customers, column: :customer_id
   end
 end

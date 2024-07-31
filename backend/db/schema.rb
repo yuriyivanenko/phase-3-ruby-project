@@ -52,4 +52,6 @@ ActiveRecord::Schema.define(version: 2024_07_29_151531) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
+  add_foreign_key "purchase_transactions", "vendors"
+  add_foreign_key "sales_transactions", "customers"
 end

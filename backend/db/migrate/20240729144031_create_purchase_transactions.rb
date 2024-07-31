@@ -8,5 +8,7 @@ class CreatePurchaseTransactions < ActiveRecord::Migration[6.1]
       t.integer :user_id
       t.timestamps
     end
+
+    add_foreign_key :purchase_transactions, :vendors, column: :vendor_id
   end
 end
