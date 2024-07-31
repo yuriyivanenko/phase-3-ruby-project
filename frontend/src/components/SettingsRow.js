@@ -1,8 +1,7 @@
 import React, { useState } from "react"
 
-const SettingsRow = ({ party: { name, id, user_id, type } }) => {
+const SettingsRow = ({ party: { name, id, user_id, type }, onChangeParty, onDeleteParty }) => {
   const [isEditable, setIsEditable] = useState(false)
-  const [nonEditName, setNonEditName] = useState(name)
   const [partyName, setPartyName] = useState(name)
 
   const handleEditing = () => setIsEditable(!isEditable)
@@ -17,9 +16,7 @@ const SettingsRow = ({ party: { name, id, user_id, type } }) => {
     })
       .then((res) => res.json())
       .then((data) => {
-        console.log(data)
-        setNonEditName(data.name)
-        setPartyName(data.name)
+        onChangeParty(data)
         setIsEditable(false)
       })
       .catch((error) => console.error("Error:", error))
@@ -34,9 +31,7 @@ const SettingsRow = ({ party: { name, id, user_id, type } }) => {
       body: JSON.stringify({ party_id: id, user_id, partyName, type }),
     })
       .then((res) => res.json())
-      .then((data) => {
-        console.log(data)
-      })
+      .then((data) => onDeleteParty(data))
       .catch((error) => console.error("Error:", error))
   }
 
@@ -50,7 +45,7 @@ const SettingsRow = ({ party: { name, id, user_id, type } }) => {
           </button>
         </td>
       ) : (
-        <td>{nonEditName}</td>
+        <td>{name}</td>
       )}
 
       <td>

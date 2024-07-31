@@ -1,4 +1,4 @@
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { useUser } from "../components/contexts/UserContext"
 import NavBar from "../components/NavBar"
 import SettingsRow from "../components/SettingsRow"
@@ -10,6 +10,10 @@ function Settings() {
   const [vendors, setVendors] = useState(null)
   const [customers, setCustomers] = useState(null)
 
+  useEffect(() => {
+    fetchVendorsAndCustomers()
+  }, [])
+
   const fetchVendorsAndCustomers = () => {
     fetch("http://localhost:9292/fetch_all_vendors_and_customers", {
       method: "POST",
@@ -20,7 +24,6 @@ function Settings() {
     })
       .then((res) => res.json())
       .then((data) => {
-        console.log(data)
         setVendors(data.vendors)
         setCustomers(data.customers)
       })
@@ -30,11 +33,40 @@ function Settings() {
   const handleCreateVendor = (vendor) => setVendors((prev) => [...prev, vendor])
   const handleCreateCustomer = (customer) => setCustomers((prev) => [...prev, customer])
 
+  const handleUpdateParty = (data) => {
+    if (data.type === "vendor") {
+      const updatedVendors = vendors.map((vendor) => {
+        if (vendor.id === data.party.id) {
+          return { ...vendor, name: data.party.name }
+        }
+        return vendor
+      })
+      setVendors(updatedVendors)
+    } else {
+      const updatedCustomers = customers.map((customer) => {
+        if (customer.id === data.party.id) {
+          return { ...customer, name: data.party.name }
+        }
+        return customer
+      })
+      setCustomers(updatedCustomers)
+    }
+  }
+
+  const handleDeleteParty = (data) => {
+    if (data.type === "vendor") {
+      const filteredVendors = vendors.filter((vendor) => vendor.id !== data.party.id)
+      setVendors(filteredVendors)
+    } else {
+      const filteredCustomers = customers.filter((customer) => customer.id !== data.party.id)
+      setCustomers(filteredCustomers)
+    }
+  }
+
   return (
     <>
       <NavBar />
       <div className="container text-center">
-        <button onClick={fetchVendorsAndCustomers}>Get All</button>
         <div className="container">
           <table className="table">
             <thead>
@@ -45,7 +77,14 @@ function Settings() {
             <tbody>
               {vendors &&
                 vendors.map((vendor) => {
-                  return <SettingsRow key={vendor.id} party={{ ...vendor, type: "vendor" }} />
+                  return (
+                    <SettingsRow
+                      key={vendor.id}
+                      onChangeParty={handleUpdateParty}
+                      onDeleteParty={handleDeleteParty}
+                      party={{ ...vendor, type: "vendor" }}
+                    />
+                  )
                 })}
               <AddVendor onCreateVendor={handleCreateVendor} />
             </tbody>
@@ -61,7 +100,14 @@ function Settings() {
               <tbody>
                 {customers &&
                   customers.map((customer) => {
-                    return <SettingsRow key={customer.id} party={{ ...customer, type: "customer" }} />
+                    return (
+                      <SettingsRow
+                        key={customer.id}
+                        onChangeParty={handleUpdateParty}
+                        onDeleteParty={handleDeleteParty}
+                        party={{ ...customer, type: "customer" }}
+                      />
+                    )
                   })}
                 <AddCustomer onAddCustomer={handleCreateCustomer} />
               </tbody>

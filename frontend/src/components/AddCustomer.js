@@ -27,7 +27,7 @@ const AddCustomer = ({ onAddCustomer }) => {
   return (
     <tr>
       <td>
-        <input className="" type="text" value={name} onChange={handleInputChange} />
+        <input required className="" type="text" value={name} onChange={handleInputChange} />
       </td>
       <td>
         <button className="btn btn-primary" onClick={handleSubmit}>
