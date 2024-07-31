@@ -1,4 +1,5 @@
 require "date"
+require "pry"
 
 class ApplicationController < Sinatra::Base
   set :default_content_type, "application/json"
@@ -107,7 +108,13 @@ class ApplicationController < Sinatra::Base
     customer.to_json
   end
 
-  post "/last_transaction" do
-    
+  post "/get_all_sales_transactions" do
+    user = User.find(params[:id])
+    user.sales_transactions.to_json(include: :customer)
+  end
+
+  post "/get_all_purchases_transactions" do
+    user = User.find(params[:id])
+    user.purchase_transactions.to_json(include: :vendor)
   end
 end
