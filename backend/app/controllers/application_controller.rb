@@ -106,4 +106,8 @@ class ApplicationController < Sinatra::Base
     customer = Customer.create(name: params[:name], user_id: params[:user_id])
     customer.to_json
   end
+
+  post "/last_transaction" do
+    
+  end
 end

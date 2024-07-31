@@ -30,7 +30,7 @@ const NavBar = () => {
           <ul className="navbar-nav">
             <li className="nav-item">
               <Link to="/new_transaction" className="nav-link">
-                New Transaction
+                Transactions
               </Link>
             </li>
             <li className="nav-item">

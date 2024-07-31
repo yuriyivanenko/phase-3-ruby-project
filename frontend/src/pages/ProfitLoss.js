@@ -66,7 +66,7 @@ const ProfitLoss = () => {
             </div>
             <div className="col">
               <button className="btn btn-primary" onClick={fetchProfitLoss}>
-                Update
+                Generate P&L
               </button>
             </div>
           </div>

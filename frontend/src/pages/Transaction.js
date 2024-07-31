@@ -2,8 +2,11 @@ import { useEffect, useState } from "react"
 import NavBar from "../components/NavBar"
 import { useUser } from "../components/contexts/UserContext"
 
-const NewTransaction = () => {
+const Transaction = () => {
   const { user } = useUser()
+  const [searchMode, setSearchMode] = useState(false)
+  const [searchTransaction, setSearchTransaction] = useState(null)
+
   const [transactionType, setTransactionType] = useState("Sale")
   const [date, setDate] = useState("")
   const [description, setDescription] = useState("")
@@ -79,7 +82,7 @@ const NewTransaction = () => {
     <>
       <NavBar />
       <div className="container text-center w-50">
-        <h3 className="my-3">New Transaction</h3>
+        <h3 className="my-3"> New Transaction</h3>
         <form onSubmit={handleSubmit}>
           <div className="input-group mb-3">
             <label className="input-group-text" htmlFor="inputGroupSelect01">
@@ -139,4 +142,4 @@ const NewTransaction = () => {
   )
 }
 
-export default NewTransaction
+export default Transaction
