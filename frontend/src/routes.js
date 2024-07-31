@@ -1,6 +1,6 @@
 import Home from "./pages/Home"
 import ProfitLoss from "./pages/ProfitLoss"
-import NewTransaction from "./pages/NewTransaction"
+import NewTransaction from "./pages/Transaction"
 import Settings from "./pages/Settings"
 
 const routes = [

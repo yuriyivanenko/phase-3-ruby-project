@@ -1,10 +1,14 @@
 import { useEffect, useState } from "react"
-import NavBar from "../components/NavBar"
 import { useUser } from "../components/contexts/UserContext"
+import NavBar from "../components/NavBar"
+import SalesTable from "../components/SalesTable"
+import PurchasesTable from "../components/PurchasesTable"
 
-const NewTransaction = () => {
-  const { user } = useUser()
+const Transaction = () => {
+  const { user, setUser } = useUser()
   const [transactionType, setTransactionType] = useState("Sale")
+  const [showTables, setShowTables] = useState(false)
+  const [showSales, setShowSales] = useState(false)
   const [date, setDate] = useState("")
   const [description, setDescription] = useState("")
   const [amount, setAmount] = useState("")
@@ -13,6 +17,14 @@ const NewTransaction = () => {
     Sale: [],
     Expense: [],
   })
+
+  useEffect(() => {
+    const savedUser = localStorage.getItem("user")
+    const user = savedUser ? JSON.parse(savedUser) : null
+    if (user) {
+      setUser(user)
+    }
+  }, [])
 
   useEffect(() => {
     fetchVendorOrCustomer(transactionType)
@@ -75,11 +87,20 @@ const NewTransaction = () => {
     setParty(data[0].id)
   }
 
+  const showPurchasesTable = () => {
+    setShowTables(true)
+    setShowSales(false)
+  }
+  const showSalesTable = () => {
+    setShowTables(true)
+    setShowSales(true)
+  }
+
   return (
     <>
       <NavBar />
       <div className="container text-center w-50">
-        <h3 className="my-3">New Transaction</h3>
+        <h3 className="my-3"> New Transaction</h3>
         <form onSubmit={handleSubmit}>
           <div className="input-group mb-3">
             <label className="input-group-text" htmlFor="inputGroupSelect01">
@@ -135,8 +156,17 @@ const NewTransaction = () => {
           </button>
         </form>
       </div>
+      <div className="container">
+        <button className="btn btn-success m-3" onClick={showSalesTable}>
+          All Sales
+        </button>
+        <button className="btn btn-danger m-3" onClick={showPurchasesTable}>
+          All Purschases
+        </button>
+      </div>
+      {showTables && showSales ? <SalesTable /> : <PurchasesTable />}
     </>
   )
 }
 
-export default NewTransaction
+export default Transaction
