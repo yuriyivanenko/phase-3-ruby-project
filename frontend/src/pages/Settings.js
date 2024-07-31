@@ -1,7 +1,8 @@
 import { useSearchParams } from "react-router-dom"
-import NavBar from "../components/NavBar"
-import { useUser } from "../components/contexts/UserContext"
 import { useState } from "react"
+import { useUser } from "../components/contexts/UserContext"
+import NavBar from "../components/NavBar"
+import SettingsRow from "../components/SettingsRow"
 
 function Settings() {
   const { user } = useUser()
@@ -40,17 +41,7 @@ function Settings() {
             <tbody>
               {vendors &&
                 vendors.map((vendor) => {
-                  return (
-                    <tr>
-                      <td>{vendor.name}</td>
-                      <td>
-                        <span className="m-4">
-                          <button className="btn btn-outline-primary">✏️</button>
-                        </span>
-                        <button className="btn btn-outline-primary">🗑️</button>
-                      </td>
-                    </tr>
-                  )
+                  return <SettingsRow key={vendor.id} party={{ ...vendor, type: "vendor" }} />
                 })}
             </tbody>
           </table>
@@ -65,17 +56,7 @@ function Settings() {
               <tbody>
                 {customers &&
                   customers.map((customer) => {
-                    return (
-                      <tr>
-                        <td>{customer.name}</td>
-                        <td>
-                          <span className="m-4">
-                            <button className="btn btn-outline-primary">✏️</button>
-                          </span>
-                          <button className="btn btn-outline-primary">🗑️</button>
-                        </td>
-                      </tr>
-                    )
+                    return <SettingsRow key={customer.id} party={{ ...customer, type: "customer" }} />
                   })}
               </tbody>
             </table>

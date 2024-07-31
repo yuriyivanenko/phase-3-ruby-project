@@ -73,4 +73,17 @@ class ApplicationController < Sinatra::Base
       customers: customers
   }.to_json
   end
+
+  patch "/update_vendor_or_customer" do
+    puts ":::::#{params}"
+    if params[:type] == "vendor"
+      vendor = Vendor.find(params[:party_id])
+      vendor.update(name: params[:partyName])
+      vendor.to_json
+    else 
+      customer = Customer.find(params[:party_id])
+      customer.update(name: params[:partyName])
+      customer.to_json
+    end
+  end
 end
