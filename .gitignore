@@ -41,3 +41,7 @@
 /frontend/npm-debug.log*
 /frontend/yarn-debug.log*
 /frontend/yarn-error.log*
+
+# Ignore nohup and log files
+backend/nohup.out
+backend/sinatra.log
