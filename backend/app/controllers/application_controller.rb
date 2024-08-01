@@ -92,12 +92,14 @@ class ApplicationController < Sinatra::Base
   end
 
   post "/delete_vendor_or_customer" do
+    puts params
     if params[:type] == "vendor"
       vendor = Vendor.find(params[:party_id])
       vendor.destroy
       {party: vendor, type: "vendor"}.to_json
     else
-      customer = Customer.find(params[:party_id]).destroy
+      customer = Customer.find(params[:party_id])
+      customer.destroy
       {party: customer, type: "customer"}.to_json
     end
   end
