@@ -35,6 +35,60 @@ const ProfitLoss = () => {
       .catch((error) => console.error("Error:", error))
   }
 
+  const handleYTD = () => {
+    fetch("http://localhost:9292/generate_YTD_PandL", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(user),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        setData(data)
+        setStartDate(data.start_date)
+        setEndDate(data.end_date)
+        console.log(data)
+      })
+      .catch((error) => console.error("Error:", error))
+  }
+
+  const handleMTD = () => {
+    fetch("http://localhost:9292/generate_MTD_PandL", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(user),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        setData(data)
+        setStartDate(data.start_date)
+        setEndDate(data.end_date)
+        console.log(data)
+      })
+      .catch((error) => console.error("Error:", error))
+  }
+
+  const handleLastMonth = () => {
+    fetch("http://localhost:9292/generate_last_month_PandL", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(user),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        setData(data)
+        setStartDate(data.start_date)
+        setEndDate(data.end_date)
+        console.log(data)
+      })
+      .catch((error) => console.error("Error:", error))
+  }
+
   const handleStartDateChange = (event) => {
     setStartDate(event.target.value)
   }
@@ -78,6 +132,17 @@ const ProfitLoss = () => {
               </button>
             </div>
           </div>
+        </div>
+        <div className="my-3">
+          <button className="btn btn-outline-primary mx-2" onClick={handleYTD}>
+            YTD P&L
+          </button>
+          <button className="btn btn-outline-primary mx-2" onClick={handleMTD}>
+            MTD P&L
+          </button>
+          <button className="btn btn-outline-primary mx-2" onClick={handleLastMonth}>
+            Last Month P&L
+          </button>
         </div>
         <table className="table">
           <thead>

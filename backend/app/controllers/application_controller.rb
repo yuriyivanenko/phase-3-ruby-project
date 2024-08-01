@@ -10,16 +10,26 @@ class ApplicationController < Sinatra::Base
   end
 
   post "/users" do
-    user = User.find_by( username: params[:username] )
+    user = User.find_by(username: params[:username])
 
     if user && user[:password] == params[:password]
       user.to_json
     else
-      { username: "error" }.to_json
+      {username: "error"}.to_json
     end
   end
 
-  post "/profitandloss" do 
+  post "/sign_up_user" do
+    puts "::::#{params}"
+    new_user = User.create(
+      business_name: params[:businessName],
+      username: params[:username],
+      password: params[:password]
+    )
+    new_user.to_json
+  end
+
+  post "/profitandloss" do
     id = params[:id]
     start_date = params[:startDate]
     end_date = params[:endDate]
@@ -34,7 +44,7 @@ class ApplicationController < Sinatra::Base
     }.to_json
   end
 
-  post "/query_vendor_or_customer" do 
+  post "/query_vendor_or_customer" do
     id = params[:id]
     transactionType = params[:transactionType]
     if transactionType == "Sale"
@@ -44,7 +54,7 @@ class ApplicationController < Sinatra::Base
     end
   end
 
-  post "/new_transaction" do 
+  post "/new_transaction" do
     if params[:transactionType] == "Sale"
       SalesTransaction.create(
         amount: params[:amount],
@@ -65,7 +75,7 @@ class ApplicationController < Sinatra::Base
     {message: "Worked"}.to_json
   end
 
-  post "/fetch_all_vendors_and_customers" do 
+  post "/fetch_all_vendors_and_customers" do
     id = params[:id]
     vendors = Vendor.where(user_id: id)
     customers = Customer.where(user_id: id)
@@ -116,5 +126,49 @@ class ApplicationController < Sinatra::Base
   post "/get_all_purchases_transactions" do
     user = User.find(params[:id])
     user.purchase_transactions.to_json(include: :vendor)
+  end
+
+  post "/generate_YTD_PandL" do
+    user_id = params[:id]
+    sales = SalesTransaction.total_YTD_sales(user_id)
+    purchases  = PurchaseTransaction.total_YTD_purchases(user_id)
+    {
+      sales: sales,
+      purchases: purchases,
+      profit_or_loss: sales - purchases,
+      end_date: Date.today,
+      start_date: Date.new(Date.today.year, 1, 1)
+    }.to_json
+  end
+
+  post "/generate_MTD_PandL" do
+    user_id = params[:id]
+    sales = SalesTransaction.total_MTD_sales(user_id)
+    purchases  = PurchaseTransaction.total_MTD_purchases(user_id)
+    {
+      sales: sales,
+      purchases: purchases,
+      profit_or_loss: sales - purchases,
+      end_date: Date.today,
+      start_date: Date.new(Date.today.year, Date.today.month, 1)
+    }.to_json
+  end
+
+  post "/generate_last_month_PandL" do
+    today = Date.today
+    sametime_last_month = today << 1
+    start_of_last_month = Date.new(sametime_last_month.year, sametime_last_month.month, 1)
+    end_of_last_month = Date.new(today.year, today.month, 1) - 1
+
+    user_id = params[:id]
+    sales = SalesTransaction.total_last_month_sales(user_id)
+    purchases  = PurchaseTransaction.total_last_month_purchases(user_id)
+    {
+      sales: sales,
+      purchases: purchases,
+      profit_or_loss: sales - purchases,
+      start_date: start_of_last_month,
+      end_date: end_of_last_month
+    }.to_json
   end
 end
