@@ -4,11 +4,6 @@ require "pry"
 class ApplicationController < Sinatra::Base
   set :default_content_type, "application/json"
 
-  # Add your routes here
-  get "/" do
-    { message: "Good luck with your project!" }.to_json
-  end
-
   post "/users" do
     user = User.find_by(username: params[:username])
 
@@ -20,7 +15,6 @@ class ApplicationController < Sinatra::Base
   end
 
   post "/sign_up_user" do
-    puts "::::#{params}"
     new_user = User.create(
       business_name: params[:businessName],
       username: params[:username],
@@ -77,8 +71,8 @@ class ApplicationController < Sinatra::Base
 
   post "/fetch_all_vendors_and_customers" do
     id = params[:id]
-    vendors = Vendor.where(user_id: id)
-    customers = Customer.where(user_id: id)
+    vendors = Vendor.where(user_id: id).order(name: :asc)
+    customers = Customer.where(user_id: id).order(name: :asc)
     {
       vendors: vendors,
       customers: customers
@@ -120,12 +114,14 @@ class ApplicationController < Sinatra::Base
 
   post "/get_all_sales_transactions" do
     user = User.find(params[:id])
-    user.sales_transactions.to_json(include: :customer)
+    sales = user.sales_transactions.order(date: :asc) 
+    sales.to_json(include: :customer)
   end
 
   post "/get_all_purchases_transactions" do
     user = User.find(params[:id])
-    user.purchase_transactions.to_json(include: :vendor)
+    purchases = user.purchase_transactions.order(date: :asc)
+    purchases.to_json(include: :vendor)
   end
 
   post "/generate_YTD_PandL" do
