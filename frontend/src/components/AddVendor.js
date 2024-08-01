@@ -17,7 +17,6 @@ const AddVendor = ({ onCreateVendor }) => {
     })
       .then((res) => res.json())
       .then((data) => {
-        console.log(data)
         setName("")
         onCreateVendor(data)
       })

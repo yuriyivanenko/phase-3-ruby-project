@@ -1,11 +1,9 @@
-import React, { useEffect, useState } from "react"
+import React, { useState } from "react"
 import { useUser } from "../contexts/UserContext"
 
 const TransactionTable = () => {
   const { user } = useUser()
   const [transactions, setTransactions] = useState(null)
-
-  // useEffect(() => fetchAllTransaction(), [])
 
   const fetchAllTransaction = () => {
     fetch("http://localhost:9292/get_all_transactions", {
@@ -17,7 +15,6 @@ const TransactionTable = () => {
     })
       .then((res) => res.json())
       .then((data) => {
-        console.log(data)
         setTransactions(data)
       })
       .catch((error) => console.error("Error:", error))

@@ -74,7 +74,6 @@ const LoginForm = () => {
     })
       .then((res) => res.json())
       .then((data) => {
-        console.log(data)
         setUser(data)
         localStorage.setItem("user", JSON.stringify(data))
         setSignupData({

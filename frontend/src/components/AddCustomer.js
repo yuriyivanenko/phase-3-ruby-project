@@ -17,7 +17,6 @@ const AddCustomer = ({ onAddCustomer }) => {
     })
       .then((res) => res.json())
       .then((data) => {
-        console.log(data)
         setName("")
         onAddCustomer(data)
       })
