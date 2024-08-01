@@ -17,7 +17,6 @@ const PurchasesTable = () => {
     })
       .then((res) => res.json())
       .then((data) => {
-        console.log(data)
         setTransactions(data)
       })
       .catch((error) => console.error("Error:", error))

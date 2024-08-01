@@ -48,7 +48,6 @@ const ProfitLoss = () => {
         setData(data)
         setStartDate(data.start_date)
         setEndDate(data.end_date)
-        console.log(data)
       })
       .catch((error) => console.error("Error:", error))
   }
@@ -66,7 +65,6 @@ const ProfitLoss = () => {
         setData(data)
         setStartDate(data.start_date)
         setEndDate(data.end_date)
-        console.log(data)
       })
       .catch((error) => console.error("Error:", error))
   }
@@ -84,7 +82,6 @@ const ProfitLoss = () => {
         setData(data)
         setStartDate(data.start_date)
         setEndDate(data.end_date)
-        console.log(data)
       })
       .catch((error) => console.error("Error:", error))
   }
