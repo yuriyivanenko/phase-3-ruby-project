@@ -10,16 +10,16 @@ class ApplicationController < Sinatra::Base
   end
 
   post "/users" do
-    user = User.find_by( username: params[:username] )
+    user = User.find_by(username: params[:username])
 
     if user && user[:password] == params[:password]
       user.to_json
     else
-      { username: "error" }.to_json
+      {username: "error"}.to_json
     end
   end
 
-  post "/profitandloss" do 
+  post "/profitandloss" do
     id = params[:id]
     start_date = params[:startDate]
     end_date = params[:endDate]
@@ -34,7 +34,7 @@ class ApplicationController < Sinatra::Base
     }.to_json
   end
 
-  post "/query_vendor_or_customer" do 
+  post "/query_vendor_or_customer" do
     id = params[:id]
     transactionType = params[:transactionType]
     if transactionType == "Sale"
@@ -44,7 +44,7 @@ class ApplicationController < Sinatra::Base
     end
   end
 
-  post "/new_transaction" do 
+  post "/new_transaction" do
     if params[:transactionType] == "Sale"
       SalesTransaction.create(
         amount: params[:amount],
@@ -65,7 +65,7 @@ class ApplicationController < Sinatra::Base
     {message: "Worked"}.to_json
   end
 
-  post "/fetch_all_vendors_and_customers" do 
+  post "/fetch_all_vendors_and_customers" do
     id = params[:id]
     vendors = Vendor.where(user_id: id)
     customers = Customer.where(user_id: id)
