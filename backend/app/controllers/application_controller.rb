@@ -127,4 +127,48 @@ class ApplicationController < Sinatra::Base
     user = User.find(params[:id])
     user.purchase_transactions.to_json(include: :vendor)
   end
+
+  post "/generate_YTD_PandL" do
+    user_id = params[:id]
+    sales = SalesTransaction.total_YTD_sales(user_id)
+    purchases  = PurchaseTransaction.total_YTD_purchases(user_id)
+    {
+      sales: sales,
+      purchases: purchases,
+      profit_or_loss: sales - purchases,
+      end_date: Date.today,
+      start_date: Date.new(Date.today.year, 1, 1)
+    }.to_json
+  end
+
+  post "/generate_MTD_PandL" do
+    user_id = params[:id]
+    sales = SalesTransaction.total_MTD_sales(user_id)
+    purchases  = PurchaseTransaction.total_MTD_purchases(user_id)
+    {
+      sales: sales,
+      purchases: purchases,
+      profit_or_loss: sales - purchases,
+      end_date: Date.today,
+      start_date: Date.new(Date.today.year, Date.today.month, 1)
+    }.to_json
+  end
+
+  post "/generate_last_month_PandL" do
+    today = Date.today
+    sametime_last_month = today << 1
+    start_of_last_month = Date.new(sametime_last_month.year, sametime_last_month.month, 1)
+    end_of_last_month = Date.new(today.year, today.month, 1) - 1
+
+    user_id = params[:id]
+    sales = SalesTransaction.total_last_month_sales(user_id)
+    purchases  = PurchaseTransaction.total_last_month_purchases(user_id)
+    {
+      sales: sales,
+      purchases: purchases,
+      profit_or_loss: sales - purchases,
+      start_date: start_of_last_month,
+      end_date: end_of_last_month
+    }.to_json
+  end
 end
