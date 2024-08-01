@@ -164,7 +164,8 @@ const Transaction = () => {
           All Purschases
         </button>
       </div>
-      {showTables && showSales ? <SalesTable /> : <PurchasesTable />}
+      {showTables && showSales ? <SalesTable /> : null}
+      {showTables && !showSales ? <PurchasesTable /> : null}
     </>
   )
 }
