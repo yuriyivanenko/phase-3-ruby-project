@@ -19,6 +19,16 @@ class ApplicationController < Sinatra::Base
     end
   end
 
+  post "/sign_up_user" do
+    puts "::::#{params}"
+    new_user = User.create(
+      business_name: params[:businessName],
+      username: params[:username],
+      password: params[:password]
+    )
+    new_user.to_json
+  end
+
   post "/profitandloss" do
     id = params[:id]
     start_date = params[:startDate]
